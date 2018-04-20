@@ -1,0 +1,42 @@
+---
+title: "Plotly & R Markdown Assignment"
+author: "Steve Johnson"
+date: "April 20, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(plotly)
+library(dplyr)
+```
+
+## Data Generation
+Create a dummy dataframe of sample names and coefficient of variation(CV). Order sample names by simulated means for plotting.
+```{r, Data}
+set.seed(042018)
+df<-data.frame(sample=LETTERS[1:10], mean=rnorm(10,mean=500, sd=250), cv=rnorm(10, mean=0.4, sd=0.08))
+df$sample<-factor(df$sample, levels=df$sample[order(df$mean)])
+```
+
+## Dual Plot: Bar and Line Chart
+Using the simulated data create a bar and line chart where the bar heights correspond to the means. Additionally, create a line chart, on the same plot, showing the coefficient of variation.
+```{r, Plot, warning=FALSE}
+ay <- list(
+  tickfont = list(color = "red"),
+  overlaying = "y",
+  side = "right",
+  range = c(0,1),
+  title = "Sample Coefficient of Variation"
+)
+p<-plot_ly(df, x = ~sample, y = ~mean, type = 'bar', name = 'Mean') %>%
+  add_lines(x = ~sample, y = ~cv,  name = 'CV', yaxis = "y2") %>%
+  layout(title = 'Sample Means and Coefficients of Variation',
+         xaxis = list(title="Sample Names"),
+         yaxis = list(title="Sample Means ug/ul"),
+         yaxis2 = ay)
+p
+```
+
+
