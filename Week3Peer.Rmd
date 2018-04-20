@@ -20,8 +20,8 @@ df<-data.frame(sample=LETTERS[1:10], mean=rnorm(10,mean=500, sd=250), cv=rnorm(1
 df$sample<-factor(df$sample, levels=df$sample[order(df$mean)])
 ```
 
-## Dual Plot: Bar and Line Chart
-Using the simulated data create a bar and line chart where the bar heights correspond to the means. Additionally, create a line chart, on the same plot, showing the coefficient of variation.
+## Plotly Dual Plot: Bar and Line Chart
+Using the simulated data create a Plotly bar and line chart where the bar heights correspond to the means. Additionally, create a line chart, on the same plot, showing the coefficient of variation.
 ```{r, Plot, warning=FALSE}
 ay <- list(
   tickfont = list(color = "red"),
